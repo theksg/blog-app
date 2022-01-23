@@ -1,0 +1,14 @@
+.write {
+    padding-top: 50px;
+}
+
+.writeFormGroup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.writeIcon{
+    font-size: 35px;
+    cursor:pointer;
+}

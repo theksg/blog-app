@@ -1,0 +1,27 @@
+.header{
+    margin-top: 60px;
+}
+
+.headerTitles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:white;
+}
+
+.headerTitleLarge{
+    position: absolute;
+    top:25%;
+    font-size: xx-large;
+}
+
+.headerTitleSmall{
+    position: absolute;
+    top:20%;
+}
+
+.headerImg{
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
