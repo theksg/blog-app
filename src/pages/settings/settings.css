@@ -33,6 +33,7 @@
   .settingsPP {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -46,4 +47,15 @@
 
   .settingsPPIcon{
       cursor: pointer;
+  }
+
+  .settingsTF{
+    margin:10px 10px;
+  }
+
+  .updateButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px;
   }
