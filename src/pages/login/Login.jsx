@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -18,8 +18,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link className="link" to="/home">
+        TheKSG                        
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -41,6 +41,7 @@ export default function SignIn() {
   };
 
   return (
+    <div className="loginWrapper">
       <div className="login">
 
     <ThemeProvider theme={theme}>
@@ -97,16 +98,16 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+              <Link className="linkGeneral" to="/login">
+                  Forgot Password                       
+              </Link>
               </Grid>
             </Grid>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <Link className="linkGeneral" to="/register">
+              {"Don't have an account? Sign Up"}                        
+              </Link>
               </Grid>
             </Grid>
           </Box>
@@ -114,6 +115,7 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </div>
     </div>
   );
 }
