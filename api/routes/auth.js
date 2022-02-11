@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 //REGISTER
 
 router.get('/', function (req, res) {
-    res.send('hello world')
+    res.send('hello world from api/auth')
 })
 
 router.post("/register", async (req, res) => {

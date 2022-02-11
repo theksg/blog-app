@@ -7,10 +7,13 @@ dotenv.config();
 const mongoose = require("mongoose");
 const PORT=process.env.PORT || 5000;
 const authRoute=require("./routes/auth");
+const userRoute=require("./routes/users");
 
 app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/blog', {
+const url='mongodb://localhost:27017/blog'
+
+mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -19,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/blog', {
 
 
 app.use("/api/auth",authRoute);
+app.use("/api/users",userRoute);
 
 app.listen(PORT,()=>{
     console.log(`server is running on PORT ${PORT}`)
