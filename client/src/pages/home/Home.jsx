@@ -12,7 +12,7 @@ const Home = () =>{
 
     useEffect(()=>{
         const fetchPosts = async ()=>{
-            const res =  await axios.get("http://localhost:50000/api/posts")
+            const res =  await axios.get("/posts")
             console.log(res.data)
             setPosts(res.data)
         }
