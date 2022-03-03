@@ -9,7 +9,7 @@ export default function SinglePost() {
 
     useEffect(()=>{
         const getPost= async()=>{
-            const res= await axios.get('/post/'+postID);
+            const res= await axios.get('/posts/'+postID);
             console.log(res)
         }
         getPost();
