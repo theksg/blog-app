@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "./register.css"
+import { useState } from "react";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -30,15 +32,31 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+export default function Register() {
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error,setError]=useState(false);
+
+
+
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    try{
+      const res= await axios.post("/auth/register",{
+        username,
+        email,
+        password
+      })
+
+      res.data && window.location.replace("/login");
+      setError(false);
+    }
+    catch(err){
+      setError(true);
+    }
   };
 
   return (
@@ -73,16 +91,20 @@ export default function SignIn() {
               autoComplete="email"
               type="email"
               autoFocus
+              value={email}
+              onChange={event=>setEmail(event.target.value)}
             />
 
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="Username"
               name="username"
               type="text"
+              value={username}
+              onChange={event=>setUsername(event.target.value)}
             />
 
             <TextField
@@ -94,6 +116,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={event=>setPassword(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -126,6 +150,8 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+
+    {error && <div>SomeThing went Wrong</div>}
     </div>
     </div>
   );
