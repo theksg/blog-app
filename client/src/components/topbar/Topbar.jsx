@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import "./topbar.css"
 import Button from '@mui/material/Button';
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 
 const buttonTheme = createTheme({
@@ -12,10 +14,13 @@ const buttonTheme = createTheme({
   },
 });
 
-const user=false;
-
 
 const Topbar = () => {
+    const {user,dispatch}=useContext(Context);
+
+    const handleLogout=()=>{
+        dispatch({type:"LOGOUT"});
+    }
     return (
         <>
             <div className="topbar">
@@ -47,7 +52,7 @@ const Topbar = () => {
                             CONTACT                        
                         </Link>
                         </li>
-                        <li className="topListItem">                        
+                        <li className="topListItem" onClick={handleLogout}>                        
                         {user && "LOGOUT"}
                         </li>
                     </ul>
@@ -58,7 +63,7 @@ const Topbar = () => {
                         <>
                     <img
                         className="topImageIcon"
-                        src="https://img.joomcdn.net/1f2187be68327142f82d31cf0e54d47e561c373c_original.jpeg"
+                        src={user.profilePic}
                         alt="Profile"
                     ></img>
                     <i class="topSearchIcon fas fa-search"></i></>

@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "./login.css"
+import {useRef} from 'react';
+import { Context } from '../../context/Context';
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -29,15 +32,29 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+export default function Login() {;
+
+  const userRef=useRef(null);
+  const passwordRef=useRef(null);
+  const {dispatch,isFetching}=React.useContext(Context)
+
+  const handleSubmit =async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    dispatch({type:"LOGIN_START"})
+
+    try{
+
+      const res = await axios.post("/auth/login",{
+        username:userRef.current.value,
+        password:passwordRef.current.value
+      })
+      console.log(res)
+      dispatch({type:"LOGIN_SUCCESS",payload:res.data})
+    }
+    catch(error){
+      console.log(error)
+      dispatch({type:"LOGIN_FAILURE",})
+    }
   };
 
   return (
@@ -71,6 +88,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               type="email"
+              inputRef={userRef}
               autoFocus
             />
 
@@ -82,6 +100,7 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              inputRef={passwordRef}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -93,6 +112,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isFetching}
             >
               Sign In
             </Button>
