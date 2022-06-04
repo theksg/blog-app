@@ -18,10 +18,13 @@ const buttonTheme = createTheme({
 });
 
 
-export default function Write() {
+export default function Write(post) {
+  let update=post.post.update || false;
 
-  const [title,setTitle]=useState("");
-  const [desc,setDesc]=useState("");
+
+
+  const [title,setTitle]=useState(post.post.title);
+  const [desc,setDesc]=useState(post.post.desc);
   const [file,setFile]=useState(null);
   const {user} =useContext(Context);
 
@@ -51,11 +54,17 @@ export default function Write() {
     }
 
     try{
-      const res=await axios.post("/posts",newPost);
+      let res;
+      if(update){
+        res=await axios.put(`/posts/${post.post._id}`,newPost)
+      }
+      else{
+      res=await axios.post("/posts",newPost);
+      }
       window.location.replace("/post/"+res.data._id);
     }
     catch(error){
-      
+      console.log(error)
     }
   }
 
@@ -108,4 +117,14 @@ export default function Write() {
         </div>
       </form>
     </div>);
+}
+
+Write.defaultProps ={
+  post:{
+    post:{
+      title:"",
+      desc:"",
+      update:false
+    }
+  }
 }

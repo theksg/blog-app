@@ -39,6 +39,10 @@
     color: tomato;
 }
 
+.singlePostIcon{
+    cursor: pointer;
+}
+
 .singlePostInfo{
     margin-bottom: 20px;
   display: flex;
