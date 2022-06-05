@@ -16,6 +16,60 @@ const categoryRoute=require("./routes/categories");
 
 const multer=require("multer")
 
+const cloudinary = require("cloudinary").v2;
+const fs = require('fs-extra')
+
+// Creating uploads folder if not already present
+// In "uploads" folder we will temporarily upload
+// image before uploading to cloudinary
+if (!fs.existsSync("./images")) {
+  fs.mkdirSync("./images");
+}
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key:  process.env.API_KEY,
+  api_secret:  process.env.API_SECRET,
+});
+
+async function uploadToCloudinary(locaFilePath) {
+  
+  // locaFilePath: path of image which was just
+  // uploaded to "uploads" folder
+
+  var mainFolderName = "blog";
+  // filePathOnCloudinary: path of image we want
+  // to set when it is uploaded to cloudinary
+  var filePathOnCloudinary = 
+      mainFolderName + "/" + locaFilePath;
+      filePathOnCloudinary=filePathOnCloudinary.replace("\\", "/")
+
+  console.log(filePathOnCloudinary)
+
+  return cloudinary.uploader
+      .upload(locaFilePath, { public_id: filePathOnCloudinary })
+      .then((result) => {
+
+          // Image has been successfully uploaded on
+          // cloudinary So we dont need local image 
+          // file anymore
+          // Remove file from local uploads folder
+          fs.unlinkSync(locaFilePath);
+
+          return {
+              message: "Success",
+              url: result.url,
+          };
+      })
+      .catch((error) => {
+
+          // Remove file from local uploads folder
+          console.log(error)
+          fs.unlinkSync(locaFilePath);
+          return { message: "Fail" };
+      });
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -26,8 +80,16 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded");
+app.post("/api/upload", upload.single("file"),async (req, res) => {
+  var locaFilePath = req.file.path;
+  try{
+    var result = await uploadToCloudinary(locaFilePath);
+    console.log(result)
+    res.send(result)
+  }
+  catch(error){
+    console.log(error)
+  }
 });
 
 app.use(express.json())

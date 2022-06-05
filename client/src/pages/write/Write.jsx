@@ -46,10 +46,12 @@ export default function Write(post) {
       newPost.photo=filename;
 
       try{
-        await axios.post("/upload",data);
+        const res=await axios.post("/upload",data);
+        console.log(res);
+        newPost.photo=res.data.url;
       }
       catch(error){
-
+        console.log(error)
       }
     }
 
