@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useContext } from "react";
+import { Context } from "./../../context/Context";
 
 
 const buttonTheme = createTheme({
@@ -17,6 +19,7 @@ const buttonTheme = createTheme({
 
 
 export default function Settings() {
+    const {user}=useContext(Context)
     return (
         <div className='settings'>
             <div className="settingsWrapper">
@@ -27,7 +30,7 @@ export default function Settings() {
                 <form action="" className="settingsForm">
                     <label htmlFor="">Profile Picture</label>
                     <div className="settingsPP">
-                        <img src="https://img.joomcdn.net/1f2187be68327142f82d31cf0e54d47e561c373c_original.jpeg" alt="" />
+                        <img src={user.profilePic} alt="" />
 
                         <IconButton>
                             <label htmlFor="fileInput" className="settingsPPIcon">

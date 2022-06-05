@@ -60,13 +60,13 @@ const Topbar = () => {
                 <div className="topRight">
 
                     {user?(
-                        <>
+                        <Link className="link" to="/settings">
                     <img
                         className="topImageIcon"
                         src={user.profilePic}
                         alt="Profile"
                     ></img>
-                    <i class="topSearchIcon fas fa-search"></i></>
+                    <i class="topSearchIcon fas fa-search"></i></Link>
                     )
                 :
                 (<>
