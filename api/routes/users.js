@@ -42,10 +42,12 @@ router.delete("/:id", async (req, res) => {
         res.status(200).json("User has been deleted...");
       } 
       catch (err) {
+        console.log(err)
         res.status(500).json(err);
       }
     } 
     catch (err) {
+      console.log(err)
       res.status(404).json("User not found!");
     }
   } 

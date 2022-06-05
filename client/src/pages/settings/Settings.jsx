@@ -40,12 +40,25 @@ export default function Settings() {
             console.log(error)
         }
     }
+
+    const handleDelete = async ()=>{
+        try{
+            await axios.delete(`/users/${user._id}`, {
+                data: { userId: user._id },
+              });
+            dispatch({type:"LOGOUT"});
+            // window.location.replace("/");
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     return (
         <div className='settings'>
             <div className="settingsWrapper">
                 <div className="settingsTitle">
                     <span className="settingsTitleUpdate">Update Account</span>
-                    <span className="settingsTitleDelete">Delete Account</span>
+                    <span className="settingsTitleDelete" onClick={handleDelete}>Delete Account</span>
                 </div>
                 <form action="" className="settingsForm">
                     <label htmlFor="">Profile Picture</label>
