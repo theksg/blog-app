@@ -26,13 +26,30 @@ export default function Settings() {
     const [file, setFile] = useState(null)
 
     const handleUpdate = async (event) =>{
-        const newPost={
+        const updatedUser={
             userId:user._id,
             username,
             email
         }
+
+        if(file){
+            const data=new FormData();
+            const filename=Date.now() + file.name;
+            data.append("name",filename);
+            data.append("file",file);
+            updatedUser.photo=filename;
+      
+            try{
+              const res=await axios.post("/upload",data);
+              console.log(res);
+              updatedUser.profilePic=res.data.url;
+            }
+            catch(error){
+              console.log(error)
+            }
+          }
         try{
-            const res=await axios.put(`/users/${user._id}`,newPost)
+            const res=await axios.put(`/users/${user._id}`,updatedUser)
             dispatch({type:"LOGIN_SUCCESS",payload:res.data})
             window.location.replace("/");
         }
@@ -63,8 +80,14 @@ export default function Settings() {
                 <form action="" className="settingsForm">
                     <label htmlFor="">Profile Picture</label>
                     <div className="settingsPP">
-                        <img src={user.profilePic} alt="" />
-
+                        
+                        {
+                            file?(
+                                <img
+                                src={URL.createObjectURL(file)}
+                                />
+                              ):(<img src={user.profilePic} alt="" />)
+                        }
                         <IconButton>
                             <label htmlFor="fileInput" className="settingsPPIcon">
                                 <AccountCircleIcon />
