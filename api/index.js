@@ -49,7 +49,7 @@ async function uploadToCloudinary(locaFilePath) {
   return cloudinary.uploader
       .upload(locaFilePath, { public_id: filePathOnCloudinary })
       .then((result) => {
-
+          console.log(result)
           // Image has been successfully uploaded on
           // cloudinary So we dont need local image 
           // file anymore
@@ -58,7 +58,7 @@ async function uploadToCloudinary(locaFilePath) {
 
           return {
               message: "Success",
-              url: result.url,
+              url: result.secure_url,
           };
       })
       .catch((error) => {

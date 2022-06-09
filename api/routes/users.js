@@ -2,6 +2,8 @@ const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
+const cloudinary = require("cloudinary").v2;
+
 
 //UPDATE
 router.put("/:id", async (req, res) => {
@@ -37,6 +39,18 @@ router.delete("/:id", async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       try {
+        if(user.profilePic!=""){
+          let pos=user.profilePic.search("blog");
+          let public_id=user.profilePic.slice(pos,-4);
+          console.log(public_id)
+          await cloudinary.uploader.destroy(public_id)
+          .then(res=>{
+            console.log(res)
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+        }
         await Post.deleteMany({ username: user.username });
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User has been deleted...");
