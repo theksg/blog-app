@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const cloudinary = require("cloudinary").v2;
+const axios = require('axios').default;
 
 
 //UPDATE
@@ -51,7 +52,13 @@ router.delete("/:id", async (req, res) => {
             console.log(error)
           })
         }
-        await Post.deleteMany({ username: user.username });
+        const posts= await axios.get('http://localhost:50000/api/posts/?username='+user.username)
+        
+        posts.data.forEach(async post => {
+          await axios.delete(`http://localhost:50000/api/posts/${post._id}`, {
+            data: { username: user.username },
+          });
+        });
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User has been deleted...");
       } 
