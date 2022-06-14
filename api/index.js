@@ -7,6 +7,8 @@ app.use(cors())
 const dotenv = require("dotenv");
 dotenv.config();
 
+app.use(express.json());
+
 const mongoose = require("mongoose");
 const PORT=process.env.PORT || 50000;
 const authRoute=require("./routes/auth");
@@ -91,6 +93,35 @@ app.post("/api/upload", upload.single("file"),async (req, res) => {
     console.log(error)
   }
 });
+
+app.delete("/api/file-delete",async(req,res)=>{
+  try{
+    console.log(req.body)
+    const link=req.body.link
+    if (link != "") {
+      try {
+          let pos=link.search("blog");
+          let public_id=link.slice(pos,-4);
+          console.log(public_id)
+          await cloudinary.uploader.destroy(public_id)
+          .then(result=>{
+            res.status(200).json(result);
+          })
+          .catch(error=>{
+            res.status(400).json(error);
+          })
+      } catch (err) {
+        res.status(501).json(err);
+      }
+    } 
+    else {
+      res.status(401).json("No link sent");
+    }
+  }
+  catch(err){
+    res.status(503).json(err);
+  }
+})
 
 app.use(express.json())
 
