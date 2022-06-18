@@ -39,9 +39,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error,setError]=useState(false);
-  const {dispatch,isFetching}=useContext(Context)
-  const {user}=useContext(Context)
+  const {dispatch}=useContext(Context)
 
 
 
@@ -59,11 +57,12 @@ export default function Register() {
         dispatch({type:"LOGIN_SUCCESS",payload:res.data})
         window.location.replace("/settings");
       }
-
-      setError(false);
     }
     catch(err){
-      setError(true);
+      if('username' in err.response.data.keyPattern)
+        alert(`Account for username ${err.response.data.keyValue.username} already exists`)
+      else if('email' in err.response.data.keyPattern)
+        alert(`Account for email ${err.response.data.keyValue.email} already exists`)
     }
   };
 
@@ -158,8 +157,6 @@ export default function Register() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-
-    {error && <div>SomeThing went Wrong</div>}
     </div>
     </div>
   );
