@@ -2,6 +2,9 @@ const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 const cloudinary = require("cloudinary").v2;
+const axios=require('axios');
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 //CREATE POST
@@ -28,6 +31,18 @@ router.put("/:id", async (req, res) => {
           },
           { new: true }
         );
+
+        if(updatedPost._doc.photo != post.photo && post.photo!=""){
+          try{
+            await axios.delete(`http://localhost:${process.env.PORT}/api/file-delete`, {
+              data: { link: post.photo },
+            });
+            console.log("Old Photo Delelted Successfully")
+          }
+          catch(error){
+            console.log(error);
+          }
+        }
         res.status(200).json(updatedPost);
       } 
       catch (err) {
