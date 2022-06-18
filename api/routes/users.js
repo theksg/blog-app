@@ -15,6 +15,7 @@ router.put("/:id", async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
     }
+    const user = await User.findById(req.params.id);
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
@@ -23,13 +24,26 @@ router.put("/:id", async (req, res) => {
         },
         { new: true }
       );
+      if(updatedUser._doc.profilePic != user.profilePic && user.profilePic!=""){
+        try{
+          await axios.delete(`http://localhost:${process.env.PORT}/api/file-delete`, {
+            data: { link: user.profilePic },
+          });
+          console.log("Old Photo Delelted Successfully")
+        }
+        catch(error){
+          console.log(error);
+        }
+      }
       const { password, ...others }=updatedUser._doc;
       res.status(200).json(others);
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err)
       res.status(500).json(err);
     }
-  } else {
+  } 
+  else {
     res.status(401).json("You can update only your account!");
   }
 });
@@ -83,7 +97,8 @@ router.get("/:id", async (req, res) => {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
     res.status(200).json(others);
-  } catch (err) {
+  } 
+  catch (err) {
     res.status(500).json(err);
   }
 });
