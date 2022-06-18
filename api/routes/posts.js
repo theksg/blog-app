@@ -65,16 +65,15 @@ router.delete("/:id", async (req, res) => {
     if (post.username === req.body.username) {
       try {
         if(post.photo!=""){
-          let pos=post.photo.search("blog");
-          let public_id=post.photo.slice(pos,-4);
-          console.log(public_id)
-          await cloudinary.uploader.destroy(public_id)
-          .then(res=>{
-            console.log(res)
-          })
-          .catch(error=>{
+          try{
+            await axios.delete(`http://localhost:${process.env.PORT}/api/file-delete`, {
+                data: { link: post.photo },
+            });
+            console.log("Old Photo Delelted Successfully")
+          }
+          catch(error){
             console.log(error)
-          })
+          }
         }
         await post.delete();
         res.status(200).json("Post has been deleted...");
