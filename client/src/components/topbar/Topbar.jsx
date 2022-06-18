@@ -63,7 +63,7 @@ const Topbar = () => {
                         <Link className="link" to="/settings">
                     <img
                         className="topImageIcon"
-                        src={user.profilePic}
+                        src={user.profilePic || "https://cdn.pixabay.com/photo/2013/03/30/00/11/user-97890_960_720.png"}
                         alt="Profile"
                     ></img>
                     <i class="topSearchIcon fas fa-search"></i></Link>
