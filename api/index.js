@@ -17,7 +17,6 @@ const postRoute = require("./routes/posts");
 const categoryRoute=require("./routes/categories");
 
 const multer=require("multer")
-
 const cloudinary = require("cloudinary").v2;
 const fs = require('fs-extra')
 
@@ -59,7 +58,7 @@ async function uploadToCloudinary(locaFilePath) {
           fs.unlinkSync(locaFilePath);
 
           return {
-              message: "Success",
+              status: 200,
               url: result.secure_url,
           };
       })
@@ -68,7 +67,7 @@ async function uploadToCloudinary(locaFilePath) {
           // Remove file from local uploads folder
           console.log(error)
           fs.unlinkSync(locaFilePath);
-          return { message: "Fail" };
+          return { status: 400 };
       });
 }
 
@@ -82,15 +81,21 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/api/upload", upload.single("file"),async (req, res) => {
-  var locaFilePath = req.file.path;
   try{
+    var locaFilePath = req.file.path;
     var result = await uploadToCloudinary(locaFilePath);
     console.log(result)
-    res.send(result)
+    if(result?.status==200){
+      res.status(200).json(result)
+    }
+    else{
+      res.status(400).json("File Not Uploaded")
+    }
   }
   catch(error){
-    console.log(error)
+    res.status(400).json(error)
   }
 });
 
@@ -103,14 +108,15 @@ app.delete("/api/file-delete",async(req,res)=>{
           let pos=link.search("blog");
           let public_id=link.slice(pos,-4);
           console.log(public_id)
-          await cloudinary.uploader.destroy(public_id)
+          cloudinary.uploader.destroy(public_id)
           .then(result=>{
             res.status(200).json(result);
           })
           .catch(error=>{
             res.status(400).json(error);
           })
-      } catch (err) {
+      } 
+      catch (err) {
         res.status(501).json(err);
       }
     } 
@@ -142,8 +148,4 @@ app.use("/api/categories",categoryRoute);
 
 app.listen(PORT,()=>{
     console.log(`server is running on PORT ${PORT}`)
-})
-
-app.get('/', function (req, res) {
-  res.send('hello world')
 })
