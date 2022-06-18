@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "./register.css"
 import { useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 function Copyright(props) {
   return (
@@ -38,12 +40,14 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error,setError]=useState(false);
+  const {dispatch,isFetching}=useContext(Context)
+  const {user}=useContext(Context)
 
 
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-
+    dispatch({type:"LOGIN_START"})
     try{
       const res= await axios.post("/auth/register",{
         username,
@@ -51,7 +55,11 @@ export default function Register() {
         password
       })
 
-      res.data && window.location.replace("/login");
+      if(res?.data){
+        dispatch({type:"LOGIN_SUCCESS",payload:res.data})
+        window.location.replace("/settings");
+      }
+
       setError(false);
     }
     catch(err){
