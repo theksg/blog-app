@@ -1,7 +1,5 @@
 const router = require("express").Router();
-const User = require("../models/User");
 const Post = require("../models/Post");
-const cloudinary = require("cloudinary").v2;
 const axios=require('axios');
 const dotenv = require("dotenv");
 dotenv.config();
