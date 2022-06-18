@@ -55,24 +55,34 @@ router.delete("/:id", async (req, res) => {
       const user = await User.findById(req.params.id);
       try {
         if(user.profilePic!=""){
-          let pos=user.profilePic.search("blog");
-          let public_id=user.profilePic.slice(pos,-4);
-          console.log(public_id)
-          await cloudinary.uploader.destroy(public_id)
-          .then(res=>{
-            console.log(res)
-          })
-          .catch(error=>{
-            console.log(error)
-          })
+          try{
+            await axios.delete(`http://localhost:${process.env.PORT}/api/file-delete`, {
+              data: { link: user.profilePic },
+            });
+            console.log("Old Photo Delelted Successfully")
+          }
+          catch(error){
+            console.log(error);
+          }
         }
-        const posts= await axios.get('http://localhost:50000/api/posts/?username='+user.username)
+        const username=user.username;
+        const posts= await Post.find({ username });
         
-        posts.data.forEach(async post => {
-          await axios.delete(`http://localhost:50000/api/posts/${post._id}`, {
-            data: { username: user.username },
-          });
+        posts.forEach(async post => {
+          post=post._doc
+          if(post.photo!=""){
+            try{
+              await axios.delete(`http://localhost:${process.env.PORT}/api/file-delete`, {
+                data: { link: post.photo },
+              });
+              console.log("Old Photo Delelted Successfully")
+            }
+            catch(error){
+              console.log(error);
+            }
+          }
         });
+        await Post.deleteMany({ username: user.username });
         await User.findByIdAndDelete(req.params.id);
         res.status(200).json("User has been deleted...");
       } 
