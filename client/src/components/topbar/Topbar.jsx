@@ -60,13 +60,17 @@ const Topbar = () => {
                 <div className="topRight">
 
                     {user?(
-                        <Link className="link" to="/settings">
-                    <img
-                        className="topImageIcon"
-                        src={user.profilePic || "https://cdn.pixabay.com/photo/2013/03/30/00/11/user-97890_960_720.png"}
-                        alt="Profile"
-                    ></img>
-                    <i class="topSearchIcon fas fa-search"></i></Link>
+                        <>
+                            <Link className="link" to="/settings">
+                            <img
+                                className="topImageIcon"
+                                src={user.profilePic || "https://cdn.pixabay.com/photo/2013/03/30/00/11/user-97890_960_720.png"}
+                                alt="Profile"
+                            ></img></Link>
+                            <i class="fa-solid fa-arrow-right-from-bracket logoutIcon" 
+                            onClick={handleLogout}
+                            ></i>
+                        </>
                     )
                 :
                 (<>
