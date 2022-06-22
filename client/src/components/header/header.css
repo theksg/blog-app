@@ -1,27 +1,41 @@
 .header{
-    margin-top: 60px;
+    position: relative;
+    padding:25px;
 }
 
-.headerTitles{
+.header::before{
+    content: "";
+    
+    position: absolute;
+    background: url("../../images/janko-ferlic-sfL_QOnmy00-unsplash.jpg") no-repeat center center/cover;
+    top:0px;
+    left:0px;
+    height: 100%;
+    width:100%;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.headerContent{
+    
     display: flex;
+    position: relative;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    color:white;
+    /* padding:  20px 100px; */
+    color: rgb(92 57 11);
+    word-wrap: break-word;
 }
 
-.headerTitleLarge{
-    position: absolute;
-    top:25%;
-    font-size: xx-large;
+.h-primary{
+    font-size: 3.8rem;
+    text-align: center;
+    padding-top: 10px;
 }
 
-.headerTitleSmall{
-    position: absolute;
-    top:20%;
-}
-
-.headerImg{
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
+.headerContent p{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 1.2rem;
 }
