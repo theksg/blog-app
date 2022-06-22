@@ -6,15 +6,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: black;
+    color:white;
     z-index:999;
 }
 
-.topLeft,.topRight{
+.topRight{
     flex:3;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
+    margin-right:50px;
+    margin-top:7px;
 }
 
 .topCenter{
@@ -31,9 +34,12 @@
 }
 
 .topIcon{
-    margin: 10px;
-    font-size: 30px;
-    cursor: pointer;
+    font-size: 1rem;
+    color:white;
+    display: block;
+    padding: 0px 25px;
+    text-decoration: none;
+    border-radius: 20px;
 }
 
 .logoutIcon{
@@ -45,13 +51,27 @@
 .topList{
     display: flex;
     list-style: none;
-    align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .topListItem{
-    margin:  0px 10px;
-    cursor: pointer;
+    font-size: 1rem;
+    color:white;
+    display: block;
+    padding: 0px 25px;
+    text-decoration: none;
+    border-radius: 20px;
+    cursor:pointer;
+}
+
+.topListItem:hover{
+    color:black;
+    background-color: white;
+    display: block;
+    padding: 0px 25px;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.5s ease-in-out;
 }
 
 .topSearchIcon{

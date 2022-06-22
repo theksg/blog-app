@@ -24,7 +24,7 @@
     justify-content: center;
     align-items: center;
     /* padding:  20px 100px; */
-    color: rgb(92 57 11);
+    color: black;
     word-wrap: break-word;
 }
 
@@ -38,4 +38,9 @@
     text-align: center;
     margin-top: 25px;
     font-size: 1.2rem;
+}
+
+.buttons{
+    margin-top:20px;
+    display: flex;
 }
