@@ -121,6 +121,5 @@ export default function Settings() {
                     </div>
                 </form>
             </div>
-            <Sidebar />
         </div>);
 }
