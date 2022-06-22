@@ -21,7 +21,7 @@
   
   .settingsTitleDelete {
     color: red;
-    font-size: 12px;
+    font-size: 1rem;
     cursor: pointer;
   }
 
@@ -58,4 +58,13 @@
     align-items: center;
     justify-content: center;
     margin: 10px 10px;
+  }
+
+  img{
+    border:solid black 1px;
+  }
+
+  .settingsForm{
+    width: 50%;
+    margin: 0px auto;
   }
