@@ -20,6 +20,18 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    firstname: {
+      type: String,
+      default: "",
+    },
+    lastname: {
+      type: String,
+      default: "",
+    },
+    bio: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
