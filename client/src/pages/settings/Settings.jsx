@@ -1,5 +1,4 @@
 import "./settings.css"
-import Sidebar from "./../../components/sidebar/Sidebar";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
@@ -20,17 +19,16 @@ const buttonTheme = createTheme({
 
 export default function Settings() {
     const {user}=useContext(Context)
-    const {dispatch,isFetching}=useContext(Context);
-    const [username, setUsername] = useState(user.username)
-    const [email, setEmail] = useState(user.email)
+    const {dispatch}=useContext(Context);
+    const [inputs, setInputs] = useState(user);
+    const handleChange = e => setInputs(prevState => 
+        ({ ...prevState, [e.target.name]: e.target.value })
+        );
     const [file, setFile] = useState(null)
 
     const handleUpdate = async (event) =>{
-        const updatedUser={
-            userId:user._id,
-            username,
-            email
-        }
+        const updatedUser=inputs
+        updatedUser.userId=user._id
 
         if(file){
             const data=new FormData();
@@ -97,16 +95,42 @@ export default function Settings() {
 
                     </div>
                     <div className="settingsTF">
+                        <TextField id="filled-basic" label="Firstname" variant="filled" type={"text"} fullWidth
+                        value={inputs.firstname}
+                        onChange={handleChange}
+                        name="firstname"
+                        />
+
+                    </div>
+                    <div className="settingsTF">
+                        <TextField id="filled-basic" label="Lastname" variant="filled" type={"text"} fullWidth
+                        value={inputs.lastname}
+                        onChange={handleChange}
+                        name="lastname"
+                        />
+
+                    </div>
+                    <div className="settingsTF">
+                        <TextField id="filled-basic" label="Bio" variant="filled" type={"text"} fullWidth
+                        value={inputs.bio}
+                        onChange={handleChange}
+                        name="bio"
+                        />
+
+                    </div>
+                    <div className="settingsTF">
                         <TextField id="filled-basic" label="Username" variant="filled" type={"text"} fullWidth
-                        value={username}
-                        onChange={event=>setUsername(event.target.value)}
+                        value={inputs.username}
+                        onChange={handleChange}
+                        name="username"
                         />
 
                     </div>
                     <div className="settingsTF">
                         <TextField id="filled-basic" label="E-Mail" variant="filled" type={"email"} fullWidth
-                        value={email}
-                        onChange={event=>setEmail(event.target.value)}
+                        value={inputs.email}
+                        onChange={handleChange}
+                        name="email"
                         />
 
                     </div>
