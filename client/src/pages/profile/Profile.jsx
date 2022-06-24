@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import Header from "../../components/header/Header";
+import ProfileCard from "../../components/profileCard/ProfileCard";
 import Posts from "../../components/posts/Posts";
-import "./home.css";
+import "./profile.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 
-const Home = () =>{
+const Profile = () =>{
     const [posts,setPosts]=useState([])
 
     const {search} = useLocation()
@@ -23,7 +23,7 @@ const Home = () =>{
     },[search])
     return (
         <>
-        <Header/>
+        <ProfileCard/>
         <div className="home">
             <Posts posts={posts}/>
         </div>
@@ -31,4 +31,4 @@ const Home = () =>{
     )
 }
 
-export default Home;
+export default Profile;

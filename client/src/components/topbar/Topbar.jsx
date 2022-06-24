@@ -29,7 +29,7 @@ const Topbar = () => {
                         </Link>
                         </li>
                         <li className="topListItem">                        
-                        <Link className="link" to="/settings">
+                        <Link className="link" to="/profile">
                             PROFILE                        
                         </Link>
                         </li>
