@@ -43,22 +43,23 @@ export default function SinglePost() {
             <div className="singlePostWrapper">
                 {
                 post.photo &&(
-                <img src={post.photo} 
-                alt="" className="singlePostImg" />
+                    <div className="singlePostImgDiv">
+                        <img src={post.photo} 
+                        alt="" className="singlePostImg" />
+                    </div>
                 )
                 }
                 <h1 className="singlePostTitle">
                     {post.title}
-                    {
+                </h1>
+                {
                         post.username === user?.username && (
                             <div className="singlePostEdit">
                                 <i className="singlePostIcon far fa-edit" onClick={()=> setUpdateMode(true)}></i>
                                 <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
                             </div>
                         )
-                    }
-                    
-                </h1>
+                }
 
                 <div className="singlePostInfo">
                     <span className="singlePostAuthor">Author:
