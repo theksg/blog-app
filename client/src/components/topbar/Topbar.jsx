@@ -31,7 +31,7 @@ const Topbar = () => {
                         {
                             user &&
                             (<li className="topListItem">                        
-                            <Link className="link" to="/profile">
+                            <Link className="link" to={`/profile/?username=${user.username}`}>
                                 PROFILE                        
                             </Link>
                             </li>)
