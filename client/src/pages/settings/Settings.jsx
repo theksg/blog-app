@@ -134,6 +134,22 @@ export default function Settings() {
                         />
 
                     </div>
+                    <div className="settingsTF">
+                        <TextField id="filled-basic" label="Facebook" variant="filled" type={"text"} fullWidth
+                        value={inputs.facebook}
+                        onChange={handleChange}
+                        name="facebook"
+                        />
+
+                    </div>
+                    <div className="settingsTF">
+                        <TextField id="filled-basic" label="Linkedin" variant="filled" type={"text"} fullWidth
+                        value={inputs.linkedin}
+                        onChange={handleChange}
+                        name="linkedin"
+                        />
+
+                    </div>
                     <div className="updateButton">
                         <ThemeProvider theme={buttonTheme}>
                             <Button

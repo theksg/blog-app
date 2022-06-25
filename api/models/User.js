@@ -31,6 +31,14 @@ const UserSchema = new mongoose.Schema(
     bio: {
       type: String,
       default: "",
+    },  
+    linkedin: {
+      type: String,
+      default: "",
+    },
+    facebook: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
