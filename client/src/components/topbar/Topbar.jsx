@@ -28,11 +28,14 @@ const Topbar = () => {
                             WRITE                        
                         </Link>
                         </li>
-                        <li className="topListItem">                        
-                        <Link className="link" to="/profile">
-                            PROFILE                        
-                        </Link>
-                        </li>
+                        {
+                            user &&
+                            (<li className="topListItem">                        
+                            <Link className="link" to="/profile">
+                                PROFILE                        
+                            </Link>
+                            </li>)
+                        }
                     </ul>
                 </div>
                 <div className="topRight">
