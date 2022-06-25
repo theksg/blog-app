@@ -26,7 +26,7 @@ function App() {
       <Route path="/write" element={user?<Write/>:<Register/>} />
       <Route path="/settings" element={user?<Settings/>:<Register/>} />
       <Route path="/post/:postID" element={<Single />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={user?<Profile/>:<Login />} />
       </Routes>
     </div> 
     </BrowserRouter>
