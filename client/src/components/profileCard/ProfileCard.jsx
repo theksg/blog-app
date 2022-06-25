@@ -1,5 +1,8 @@
 import "./profileCard.css";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 const ProfileCard = () =>{
+  const {user,dispatch}=useContext(Context);
     return (
         <div className="profileCard">
             <div class="container">
@@ -7,18 +10,37 @@ const ProfileCard = () =>{
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                   <div class="our-team">
                     <div class="picture">
-                      <img class="img-fluid" src="https://picsum.photos/130/130?image=1027"/>
+                      <img 
+                      class="img-fluid" 
+                      src={user.profilePic || "https://cdn.pixabay.com/photo/2013/03/30/00/11/user-97890_960_720.png"}/>
                     </div>
                     <div class="team-content">
-                      <h3 class="name">Michele Miller</h3>
-                      <h4 class="title">Web Developer</h4>
-                      <p>a Short bio</p>
+                      {
+                        user.firstname ? (
+                          <>
+                          <h3 class="name">{user.firstname +` `+ user.lastname}</h3>
+                          <h4 class="title">{user.username}</h4>
+                          </>
+                        ):(
+                          <>
+                          <h4 class="name">{user.username}</h4>
+                          </>
+                        )
+                      }
+                      {
+                        user.bio &&(<p>{user.bio}</p>)
+                      }
                     </div>
                     <ul class="social">
-                      <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-                      <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-                      <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li>
-                      <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
+                      {
+                        user.facebook && (<li><a href={user.facebook} class="fa fa-facebook" aria-hidden="true" target="_blank"></a></li>)
+                      }
+                      {
+                        user.linkedin && (<li><a href={user.linkedin} class="fa fa-linkedin" aria-hidden="true" target="_blank"></a></li>)
+                      }
+                      
+                      <li><a href={`mailto:${user.email}`} class="fa-solid fa-envelope" aria-hidden="true" target="_blank"></a></li>
+                      
                     </ul>
                   </div>
                 </div>
