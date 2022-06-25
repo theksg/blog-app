@@ -112,4 +112,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/",async (req,res) =>{
+  try{
+    const username = req.query.username;
+    const user = await User.find({ username });
+    const { password, ...others } = user[0]._doc;
+    res.status(200).json(others);
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
