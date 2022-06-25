@@ -52,7 +52,8 @@ export default function Login() {;
       dispatch({type:"LOGIN_SUCCESS",payload:res.data})
     }
     catch(error){
-      console.log(error)
+      console.log(error);
+      alert("Wrong Credentials Entered!")
       dispatch({type:"LOGIN_FAILURE",})
     }
   };
