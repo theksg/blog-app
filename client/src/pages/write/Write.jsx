@@ -93,7 +93,9 @@ export default function Write(post) {
             onChange={event=>setTitle(event.target.value)}
           />
         </div>
-        <CategoryBox setCategories={setCategories}/>
+        <div className="categoryBox">
+          <CategoryBox setCategories={setCategories}/>
+        </div>
         <div className="writeFormGroupBottom">
           <TextareaAutosize
             aria-label="minimum height"

@@ -23,7 +23,7 @@ const Label = styled('label')`
 
 const InputWrapper = styled('div')(
   ({ theme }) => `
-  width: 300px;
+  width: 99%;
   border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
   background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
   border-radius: 4px;
@@ -179,13 +179,12 @@ export default function CategoryBox(props) {
   return (
     <Root>
       <div {...getRootProps()}>
-        <Label {...getInputLabelProps()}>Customized hook</Label>
-        <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
+        <InputWrapper ref={setAnchorEl} >
           {value.map((option, index) => (
             <StyledTag label={option} {...getTagProps({ index })} />
           ))}
 
-          <input {...getInputProps()} />
+          <input placeholder="Tags"  {...getInputProps()}/>
         </InputWrapper>
       </div>
       {groupedOptions.length > 0 ? (
