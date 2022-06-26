@@ -7,7 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../context/Context";
-
+import CategoryBox from "../../components/categoryBox/CategoryBox";
 
 const buttonTheme = createTheme({
   palette: {
@@ -27,6 +27,7 @@ export default function Write(post) {
   const [desc,setDesc]=useState(post.post.desc);
   const [file,setFile]=useState(null);
   const {user} =useContext(Context);
+  const [categories, setCategories] = useState([])
 
   const handleSubmit = async event =>{
     event.preventDefault();
@@ -35,7 +36,8 @@ export default function Write(post) {
     const newPost ={
       username:user.username,
       title,
-      desc
+      desc,
+      categories
     }
 
     if(file){
@@ -91,6 +93,7 @@ export default function Write(post) {
             onChange={event=>setTitle(event.target.value)}
           />
         </div>
+        <CategoryBox setCategories={setCategories}/>
         <div className="writeFormGroupBottom">
           <TextareaAutosize
             aria-label="minimum height"
