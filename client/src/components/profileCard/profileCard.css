@@ -117,4 +117,8 @@
     color: #450505fb;
     background-color: #f7f5ec;
   }
+
+  .row{
+    max-width: 50%;
+  }
   
