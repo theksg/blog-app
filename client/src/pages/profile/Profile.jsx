@@ -29,7 +29,7 @@ const Profile = () =>{
     return (
         <>
         <ProfileCard/>
-        <h3>
+        {posts.length>0 ? (<h3>
             {
                 cur_user === user.username ? (
                     <>
@@ -41,7 +41,10 @@ const Profile = () =>{
                     </>
                 )
             }
-        </h3>
+        </h3>):(
+            <h3>Wow!!! Such Empty</h3>
+        )
+        }
         <div className="home">
             <Posts posts={posts}/>
         </div>
