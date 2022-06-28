@@ -41,14 +41,10 @@ export default function SinglePost() {
         return (
         <div className="singlePost">
             <div className="singlePostWrapper">
-                {
-                post.photo &&(
-                    <div className="singlePostImgDiv">
-                        <img src={post.photo} 
-                        alt="" className="singlePostImg" />
-                    </div>
-                )
-                }
+                <div className="singlePostImgDiv">
+                    <img src={post.photo || "https://i.pinimg.com/736x/29/46/4a/29464aa3c5800484f4577ca0c53f8953--reading-quotes-reading-books.jpg"} 
+                    alt="" className="singlePostImg" />
+                </div>
                 <h1 className="singlePostTitle">
                     {post.title}
                 </h1>
