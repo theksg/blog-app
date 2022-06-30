@@ -111,9 +111,7 @@ router.get("/", async (req, res) => {
     } 
     else if (category) {
       posts = await Post.find({
-        categories: {
-          $in: [category],
-        },
+        $text: { $search: category } 
       });
     } 
     else {
