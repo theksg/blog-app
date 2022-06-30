@@ -1,5 +1,6 @@
 import "./post.css";
 import {Link} from "react-router-dom";
+import CategoryItem from "../categoryItem/CategoryItem";
 
 
 export default function Post({post}) {
@@ -12,10 +13,9 @@ export default function Post({post}) {
           className="postImg" />
         <div className="postInfo">
             <div className="postCategories">
-              <span className="postCategory"></span>
-              {post.categories.map(cur_category=>(
-                <span className="postCategory">{cur_category}</span>
-              ))}
+              {
+                post.categories?.map(category=><CategoryItem category={category}/>)
+              }
             </div>
             <Link to={`/post/${post._id}`} className="link">
               <span className="postTitle">{post.title}</span>

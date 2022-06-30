@@ -24,6 +24,7 @@ const Home = () =>{
     return (
         <>
         <Header/>
+        <a id="posts"></a>
         <div className="home">
             <Posts posts={posts}/>
         </div>

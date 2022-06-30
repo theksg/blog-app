@@ -6,6 +6,7 @@ import "./singlePost.css";
 import {Link} from "react-router-dom";
 import { Context } from "../../context/Context";
 import Write from "../../pages/write/Write";
+import CategoryItem from "../categoryItem/CategoryItem";
 
 
 export default function SinglePost() {
@@ -64,6 +65,11 @@ export default function SinglePost() {
                     </Link>
                     </span>
                     <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
+                </div>
+                <div className="CategoryItems">
+                   {
+                     post.categories?.map(category=><CategoryItem category={category}/>)
+                   }
                 </div>
                 <p className="singlePostDesc">
                     {post.desc}
