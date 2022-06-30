@@ -17,11 +17,15 @@ border-radius : 7px;
 }
 
 .postCategories{
-    color:#be9656;
-    line-height: 20px;
-    margin-top: 15px;
-    cursor: pointer
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
+ .postCategories  > a{
+    margin: 0 10px;
+ }
 
 .postCategory{
     margin:0px 5px;
