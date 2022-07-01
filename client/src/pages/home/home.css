@@ -1,3 +1,7 @@
 .home{
     display: flex;
 }
+
+.searchBar{
+    height: 105px;
+}
