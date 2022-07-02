@@ -27,8 +27,8 @@ export default function Write(post) {
   const [desc,setDesc]=useState(post.post.desc);
   const [file,setFile]=useState(null);
   const {user} =useContext(Context);
-  const [categories, setCategories] = useState([])
-
+  const [categories, setCategories] = useState(post.post.categories || [])
+  console.log(categories)
   const handleSubmit = async event =>{
     event.preventDefault();
 
@@ -94,7 +94,7 @@ export default function Write(post) {
           />
         </div>
         <div className="categoryBox">
-          <CategoryBox setCategories={setCategories}/>
+          <CategoryBox setCategories={setCategories} categories={categories}/>
         </div>
         <div className="writeFormGroupBottom">
           <TextareaAutosize

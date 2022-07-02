@@ -176,8 +176,14 @@ export default function CategoryBox(props) {
     options: [],
     freeSolo:true,
     getOptionLabel: (option) => option,
+    value:props.categories,
+    onChange: (e,v)=>{
+      console.log(v)
+      props.setCategories(v)
+    }
   });
-  props.setCategories(value)
+  
+  console.log(props)
   return (
     <Root>
       <div {...getRootProps()}>
