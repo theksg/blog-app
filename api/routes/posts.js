@@ -107,15 +107,15 @@ router.get("/", async (req, res) => {
   try {
     let posts;
     if (username) {
-      posts = await Post.find({ username });
+      posts = await Post.find({ username }).sort({$natural:-1});
     } 
     else if (category) {
       posts = await Post.find({
         $text: { $search: category } 
-      });
+      }).sort({$natural:-1});
     } 
     else {
-      posts = await Post.find();
+      posts = await Post.find().sort({$natural:-1});
     }
     res.status(200).json(posts);
   } 
