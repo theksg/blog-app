@@ -51,8 +51,19 @@ export default function Settings() {
             dispatch({type:"LOGIN_SUCCESS",payload:res.data})
             window.location.replace("/");
         }
-        catch(error){
-            console.log(error)
+        catch(err){
+            if('username' in err.response.data.keyPattern){
+                alert(`Account for username ${err.response.data.keyValue.username} already exists`)
+                setInputs(prevState => 
+                    ({ ...prevState, "username": user.username })
+                );
+            }
+            else if('email' in err.response.data.keyPattern){
+                alert(`Account for email ${err.response.data.keyValue.email} already exists`)
+                setInputs(prevState => 
+                    ({ ...prevState, "email": user.email })
+                );
+            }
         }
     }
 
