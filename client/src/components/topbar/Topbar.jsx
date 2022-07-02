@@ -31,8 +31,8 @@ const Topbar = () => {
                         {
                             user &&
                             (<li className="topListItem">                        
-                            <Link className="link" to={`/profile/?username=${user.username}`}>
-                                PROFILE                        
+                            <Link className="link" to="/settings">
+                                ACCOUNT                        
                             </Link>
                             </li>)
                         }
@@ -42,7 +42,7 @@ const Topbar = () => {
 
                     {user&&(
                         <>
-                            <Link className="link" to="/settings">
+                            <Link className="link" to={`/profile/?username=${user.username}`}>
                             <img
                                 className="topImageIcon"
                                 src={user.profilePic || "https://cdn.pixabay.com/photo/2013/03/30/00/11/user-97890_960_720.png"}
