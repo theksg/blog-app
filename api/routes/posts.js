@@ -112,7 +112,7 @@ router.get("/", async (req, res) => {
     else if (category) {
       posts = await Post.find({
         $text: { $search: category } 
-      }).sort({$natural:-1});
+      });
     } 
     else {
       posts = await Post.find().sort({$natural:-1});
