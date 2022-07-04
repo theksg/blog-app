@@ -41,9 +41,9 @@ const Header = () =>{
                                 <Button 
                                 variant="outlined" 
                                 >
-                                    <Link className="link" to="/register">
-                                        READ                         
-                                    </Link>
+                                    <a href="#posts">
+                                         READ 
+                                    </a> 
                                 </Button>
                                 </ThemeProvider>
                             </div>
