@@ -4,6 +4,15 @@ const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const axios = require('axios').default;
 
+function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
 
 //UPDATE
 router.put("/:id", async (req, res) => {
@@ -14,6 +23,29 @@ router.put("/:id", async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
     }
+
+    if(req.body.facebook!="" && !validURL(req.body.facebook)){
+      const err={
+        "index": 0,
+        "code": 11000,
+        "keyPattern": {
+          "facebook": 1
+        }
+      }
+      res.status(500).json(err);
+    }
+
+    if(req.body.linkedin!="" && !validURL(req.body.linkedin)){
+      const err={
+        "index": 0,
+        "code": 11000,
+        "keyPattern": {
+          "linkedin": 1
+        }
+      }
+      res.status(500).json(err);
+    }
+
     const user = await User.findById(req.params.id);
     try {
       const updatedUser = await User.findByIdAndUpdate(
