@@ -64,6 +64,24 @@ export default function Settings() {
                     ({ ...prevState, "email": user.email })
                 );
             }
+            else if('emailPattern' in err.response.data.keyPattern){
+                alert(`Invalid e-mail address added`)
+                setInputs(prevState => 
+                    ({ ...prevState, "email": user.email })
+                );
+            }
+            else if('facebook' in err.response.data.keyPattern){
+                alert(`Invalid url for facebook`)
+                setInputs(prevState => 
+                    ({ ...prevState, "facebook": user.facebook })
+                );
+            }
+            else if('linkedin' in err.response.data.keyPattern){
+                alert(`Invalid url for linkedin`)
+                setInputs(prevState => 
+                    ({ ...prevState, "linkedin": user.linkedin })
+                );
+            }
         }
     }
 

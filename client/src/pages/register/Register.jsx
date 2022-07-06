@@ -63,6 +63,8 @@ export default function Register() {
         alert(`Account for username ${err.response.data.keyValue.username} already exists`)
       else if('email' in err.response.data.keyPattern)
         alert(`Account for email ${err.response.data.keyValue.email} already exists`)
+      else if('emailPattern' in err.response.data.keyPattern)
+        alert(`Invalid e-mail address added`)
     }
   };
 

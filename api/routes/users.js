@@ -14,40 +14,59 @@ function validURL(str) {
   return !!pattern.test(str);
 }
 
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+
 //UPDATE
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
-    const { userID, ...newBody }=req.body;
-    req.body=newBody;
-    if (req.body.password) {
-      const salt = await bcrypt.genSalt(10);
-      req.body.password = await bcrypt.hash(req.body.password, salt);
-    }
-
-    if(req.body.facebook!="" && !validURL(req.body.facebook)){
-      const err={
-        "index": 0,
-        "code": 11000,
-        "keyPattern": {
-          "facebook": 1
-        }
-      }
-      res.status(500).json(err);
-    }
-
-    if(req.body.linkedin!="" && !validURL(req.body.linkedin)){
-      const err={
-        "index": 0,
-        "code": 11000,
-        "keyPattern": {
-          "linkedin": 1
-        }
-      }
-      res.status(500).json(err);
-    }
-
-    const user = await User.findById(req.params.id);
+    
     try {
+      const { userID, ...newBody }=req.body;
+      req.body=newBody;
+      if (req.body.password) {
+        const salt = await bcrypt.genSalt(10);
+        req.body.password = await bcrypt.hash(req.body.password, salt);
+      }
+  
+      if(req.body.facebook!="" && !validURL(req.body.facebook)){
+        const err={
+          "index": 0,
+          "code": 11000,
+          "keyPattern": {
+            "facebook": 1
+          }
+        }
+        throw err;
+      }
+
+      if(req.body.linkedin!="" && !validURL(req.body.linkedin)){
+        const err={
+          "index": 0,
+          "code": 11000,
+          "keyPattern": {
+            "linkedin": 1
+          }
+        }
+        throw err;
+      }
+  
+      if(validateEmail(req.body.email)==null){
+        const err={
+          "index": 0,
+          "code": 11000,
+          "keyPattern": {
+            "emailPattern": 1
+          }
+        }
+        throw err;
+      }
+      const user = await User.findById(req.params.id);
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         {
