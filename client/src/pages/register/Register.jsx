@@ -39,7 +39,7 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {dispatch}=useContext(Context)
+  const {dispatch,isFetching}=useContext(Context)
 
 
 
@@ -59,6 +59,7 @@ export default function Register() {
       }
     }
     catch(err){
+      dispatch({type:"LOGIN_FAILURE"})
       if('username' in err.response.data.keyPattern)
         alert(`Account for username ${err.response.data.keyValue.username} already exists`)
       else if('email' in err.response.data.keyPattern)
@@ -137,6 +138,7 @@ export default function Register() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isFetching}
             >
               Sign Up
             </Button>
