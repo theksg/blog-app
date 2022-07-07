@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../context/Context";
 import CategoryBox from "../../components/categoryBox/CategoryBox";
+import Loader from "../../components/loader/Loader";
 
 const buttonTheme = createTheme({
   palette: {
@@ -22,7 +23,7 @@ export default function Write(post) {
   let update=post.post.update || false;
 
 
-
+  const [press, setPress] = useState(false);
   const [title,setTitle]=useState(post.post.title);
   const [desc,setDesc]=useState(post.post.desc);
   const [file,setFile]=useState(null);
@@ -31,7 +32,7 @@ export default function Write(post) {
   console.log(categories)
   const handleSubmit = async event =>{
     event.preventDefault();
-
+    setPress(true);
 
     const newPost ={
       username:user.username,
@@ -69,6 +70,7 @@ export default function Write(post) {
     }
     catch(error){
       console.log(error)
+      setPress(false);
     }
   }
 
@@ -108,11 +110,17 @@ export default function Write(post) {
         </div>
         <div className="writeButton">
         <ThemeProvider theme={buttonTheme}>
-        <Button 
-        variant="outlined" 
-        className="writeButton"
-        type="submit"
-        >Publish</Button>
+        {
+          !press ? (
+            <Button 
+            variant="outlined" 
+            className="writeButton"
+            type="submit"
+            >Publish</Button>
+          ):(
+            <Loader/>
+          )
+        }
         </ThemeProvider>
         </div>
       </form>
