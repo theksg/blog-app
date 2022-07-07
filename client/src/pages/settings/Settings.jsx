@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useContext,useState } from "react";
 import { Context } from "./../../context/Context";
 import axios from "axios";
+import Loader from "../../components/loader/Loader";
 
 const buttonTheme = createTheme({
     palette: {
@@ -26,7 +27,10 @@ export default function Settings() {
         );
     const [file, setFile] = useState(null)
 
+    const [press, setPress] = useState(false);
+
     const handleUpdate = async (event) =>{
+        setPress(true);
         const updatedUser=inputs
         updatedUser.userId=user._id
 
@@ -82,6 +86,7 @@ export default function Settings() {
                     ({ ...prevState, "linkedin": user.linkedin })
                 );
             }
+            setPress(false);
         }
     }
 
@@ -181,10 +186,14 @@ export default function Settings() {
                     </div>
                     <div className="updateButton">
                         <ThemeProvider theme={buttonTheme}>
-                            <Button
+                            {!press ? (
+                                <Button
                                 onClick={handleUpdate}
                                 variant="outlined"
-                            >Update</Button>
+                                >Update</Button>
+                            ):(
+                                <Loader/>
+                            )}
                         </ThemeProvider>
                     </div>
                 </form>
