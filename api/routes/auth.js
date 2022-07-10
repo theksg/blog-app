@@ -1,14 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const common_functions = require('../common_functions');
 
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
 
 //REGISTER
 
@@ -18,7 +12,7 @@ router.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
 
-    if(validateEmail(req.body.email) == null){
+    if(common_functions.validateEmail(req.body.email) == null){
       const err={
         "index": 0,
         "code": 11000,
@@ -46,7 +40,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     let user;
-    if(validateEmail(req.body.username) == null){
+    if(common_functions.validateEmail(req.body.username) == null){
       user = await User.findOne({ username: req.body.username });
     }
     else{

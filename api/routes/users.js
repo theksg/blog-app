@@ -3,24 +3,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const axios = require('axios').default;
-
-function validURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return !!pattern.test(str);
-}
-
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+const common_functions = require('../common_functions');
 
 //UPDATE
 router.put("/:id", async (req, res) => {
@@ -34,7 +17,7 @@ router.put("/:id", async (req, res) => {
         req.body.password = await bcrypt.hash(req.body.password, salt);
       }
   
-      if(req.body.facebook!="" && !validURL(req.body.facebook)){
+      if(req.body.facebook!="" && !common_functions.validURL(req.body.facebook)){
         const err={
           "index": 0,
           "code": 11000,
@@ -45,7 +28,7 @@ router.put("/:id", async (req, res) => {
         throw err;
       }
 
-      if(req.body.linkedin!="" && !validURL(req.body.linkedin)){
+      if(req.body.linkedin!="" && !common_functions.validURL(req.body.linkedin)){
         const err={
           "index": 0,
           "code": 11000,
@@ -56,7 +39,7 @@ router.put("/:id", async (req, res) => {
         throw err;
       }
   
-      if(validateEmail(req.body.email)==null){
+      if(common_functions.validateEmail(req.body.email)==null){
         const err={
           "index": 0,
           "code": 11000,
