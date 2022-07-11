@@ -46,6 +46,7 @@ export default function Write(post) {
       const filename=Date.now() + file.name;
       data.append("name",filename);
       data.append("file",file);
+      data.append("height",300);
       newPost.photo=filename;
 
       try{

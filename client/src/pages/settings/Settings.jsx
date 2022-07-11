@@ -39,6 +39,7 @@ export default function Settings() {
             const filename=Date.now() + file.name;
             data.append("name",filename);
             data.append("file",file);
+            data.append("height",130);
             updatedUser.photo=filename;
       
             try{

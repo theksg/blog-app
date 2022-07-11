@@ -33,7 +33,7 @@ cloudinary.config({
   api_secret:  process.env.API_SECRET,
 });
 
-async function uploadToCloudinary(locaFilePath) {
+async function uploadToCloudinary(locaFilePath ,height) {
   
   // locaFilePath: path of image which was just
   // uploaded to "uploads" folder
@@ -48,7 +48,7 @@ async function uploadToCloudinary(locaFilePath) {
   console.log(filePathOnCloudinary)
 
   return cloudinary.uploader
-      .upload(locaFilePath, { public_id: filePathOnCloudinary })
+      .upload(locaFilePath, { public_id: filePathOnCloudinary , height:height , crop:"scale" })
       .then((result) => {
           console.log(result)
           // Image has been successfully uploaded on
@@ -85,7 +85,8 @@ const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"),async (req, res) => {
   try{
     var locaFilePath = req.file.path;
-    var result = await uploadToCloudinary(locaFilePath);
+    var height = req.body.height;
+    var result = await uploadToCloudinary(locaFilePath , height);
     console.log(result)
     if(result?.status==200){
       res.status(200).json(result)
