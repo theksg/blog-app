@@ -33,7 +33,7 @@
     border: solid black 1px;
 }
 
-.topIcon{
+.topIcon , .topIconFullScreen ,#ham ,#cross{
     font-size: 1rem;
     color:white;
     display: block;
@@ -80,4 +80,53 @@
 
 .topBarButton{
     margin:0px 10px;
+}
+
+.topbar ul{
+    padding: 0;
+}
+
+#ham,#cross{
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .topListItem ,.topIcon, .topImageIcon ,.topIconFullScreen{
+        display: none;
+        padding: 0 0;
+    }
+    #ham{
+        display: block;
+    }
+
+    .topRight,.topCenter{
+        flex: none;
+    }
+
+    .topRight , .topList{
+        flex-direction: column;
+    }
+
+    .topbar{
+        min-height: 50px;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .topList {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .topRight{
+        margin-right: 0;
+    }
+
+    .topIcon ,#ham, #cross, .topImageIcon , .topListItem{
+        margin: 10px 0;
+    }
+
 }

@@ -10,12 +10,61 @@ const Topbar = () => {
     const handleLogout=()=>{
         dispatch({type:"LOGOUT"});
     }
+
+    function change_css_burger_icon(){
+        let LIItems=document.getElementsByClassName('topListItem')
+    
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:block;'
+        
+        LIItems=document.getElementsByClassName('topIcon')
+
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:block;'
+
+        LIItems=document.getElementsByClassName('topImageIcon')
+
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:block;'
+    
+        // document.getElementById('nonIconItem').classList.add('container');
+        
+        document.getElementById('cross').style.cssText='display:block;'
+        document.getElementById('ham').style.cssText='display:none;'
+    }
+
+    function change_css_cross_icon(){
+        let LIItems=document.getElementsByClassName('topListItem')
+    
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:none;'
+        
+        LIItems=document.getElementsByClassName('topIcon')
+
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:none;'
+
+        LIItems=document.getElementsByClassName('topImageIcon')
+
+        for(let i=0;i<LIItems.length;i++)
+            LIItems[i].style.cssText = 'display:none;'
+        
+        // document.getElementById('nonIconItem').classList.remove('container');
+        document.getElementById('cross').style.cssText='display:none;'
+        document.getElementById('ham').style.cssText='display:block;'
+    }
     return (
         <>
             <div className="topbar">
                 <div className="topCenter">
                     <ul className="topList">
-                        <li className="topIcon">
+                        <li  id="ham">
+                            <i class="fa-solid fa-bars" onClick={change_css_burger_icon}></i>
+                        </li>
+                        <li  id="cross">
+                            <i class="fa-solid fa-xmark" onClick={change_css_cross_icon}></i>
+                        </li>
+                        <li className="topIconFullScreen">
                             <i class="fa-solid fa-bookmark"></i>
                         </li>
                         <li className="topListItem">
