@@ -77,3 +77,10 @@
 .css-1tm81ay{
     width: 100%;
 }
+
+@media only screen and (max-width: 600px) {
+    .writeTopImg{
+        height: 250px;
+        width: 80%;
+    }
+}
