@@ -22,9 +22,10 @@ const Home = () =>{
 
         fetchPosts();
     },[search])
+
     return (
         <>
-        <Header/>
+        {(window.screen.width>800 || search ==="") &&(<Header/>)}
         <a id="posts"></a>
         <div className="searchBar">
             <SearchBar/>
