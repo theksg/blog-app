@@ -19,7 +19,7 @@ const Header = () =>{
         <div className="header">
             <div className="headerContent">
                 <div className="h-primary">
-                    BlogBook
+                    Blog Book
                 </div>
                 <p>Your very own Thought Station !!!</p>
                 {
