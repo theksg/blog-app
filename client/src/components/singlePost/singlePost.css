@@ -85,4 +85,8 @@
         height: 250px;
         width: 80%;
     }
+
+    .single {
+        margin-top: 50px;
+    }
 }
