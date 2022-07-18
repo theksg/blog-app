@@ -92,28 +92,35 @@
 
 @media only screen and (max-width: 800px) {
 
-    .topListItem ,.topIcon, .topImageIcon ,.topIconFullScreen{
+     .topListItem,.topIconFullScreen{
         display: none;
         padding: 0 0;
     }
+    
     #ham{
         display: block;
     }
 
-    .topRight,.topCenter{
-        flex: none;
-    }
+    
 
-    .topRight , .topList{
+    .topList{
         flex-direction: column;
     }
 
     .topbar{
         min-height: 50px;
-        height: 100%;
-        flex-direction: column;
+        position:fixed;
+        align-items:flex-start;
+        transition: 0.5s ease-out;
     }
 
+    #ham, #cross ,.topListItem{
+        margin: 10px 10px;
+    } 
+    .topRight{
+        margin-right: 0;
+    }
+/*
     .topList {
         display: flex;
         list-style: none;
@@ -121,12 +128,8 @@
         align-items: center;
     }
 
-    .topRight{
-        margin-right: 0;
-    }
+    
 
-    .topIcon ,#ham, #cross, .topImageIcon , .topListItem{
-        margin: 10px 0;
-    }
+    */
 
 }

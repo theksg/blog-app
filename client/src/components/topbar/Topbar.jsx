@@ -12,50 +12,36 @@ const Topbar = () => {
     }
 
     function change_css_burger_icon(){
+        if(window.screen.width>800)
+            return;
         let LIItems=document.getElementsByClassName('topListItem')
     
         for(let i=0;i<LIItems.length;i++)
             LIItems[i].style.cssText = 'display:block;'
-        
-        LIItems=document.getElementsByClassName('topIcon')
-
-        for(let i=0;i<LIItems.length;i++)
-            LIItems[i].style.cssText = 'display:block;'
-
-        LIItems=document.getElementsByClassName('topImageIcon')
-
-        for(let i=0;i<LIItems.length;i++)
-            LIItems[i].style.cssText = 'display:block;'
     
         // document.getElementById('nonIconItem').classList.add('container');
+        document.getElementById('topbar').style.cssText='height: 100%;';
         
         document.getElementById('cross').style.cssText='display:block;'
         document.getElementById('ham').style.cssText='display:none;'
     }
 
     function change_css_cross_icon(){
+        if(window.screen.width>800)
+            return;
         let LIItems=document.getElementsByClassName('topListItem')
     
         for(let i=0;i<LIItems.length;i++)
             LIItems[i].style.cssText = 'display:none;'
         
-        LIItems=document.getElementsByClassName('topIcon')
-
-        for(let i=0;i<LIItems.length;i++)
-            LIItems[i].style.cssText = 'display:none;'
-
-        LIItems=document.getElementsByClassName('topImageIcon')
-
-        for(let i=0;i<LIItems.length;i++)
-            LIItems[i].style.cssText = 'display:none;'
-        
         // document.getElementById('nonIconItem').classList.remove('container');
+        document.getElementById('topbar').style.removeProperty('height');
         document.getElementById('cross').style.cssText='display:none;'
         document.getElementById('ham').style.cssText='display:block;'
     }
     return (
         <>
-            <div className="topbar">
+            <div className="topbar" id="topbar">
                 <div className="topCenter">
                     <ul className="topList">
                         <li  id="ham">
@@ -67,19 +53,19 @@ const Topbar = () => {
                         <li className="topIconFullScreen">
                             <i class="fa-solid fa-bookmark"></i>
                         </li>
-                        <li className="topListItem">
+                        <li className="topListItem" onClick={change_css_cross_icon}>
                             <Link className="link" to="/">
                                 HOME
                             </Link>
                         </li>
-                        <li className="topListItem">                        
+                        <li className="topListItem" onClick={change_css_cross_icon}>                        
                         <Link className="link" to="/write">
                             WRITE                        
                         </Link>
                         </li>
                         {
                             user &&
-                            (<li className="topListItem">                        
+                            (<li className="topListItem" onClick={change_css_cross_icon}>                        
                             <Link className="link" to="/settings">
                                 ACCOUNT                        
                             </Link>
