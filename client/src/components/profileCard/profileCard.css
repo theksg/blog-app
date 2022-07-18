@@ -119,4 +119,28 @@
   .row{
     max-width: 50%;
   }
+
+  @media only screen and (max-width: 800px){
+    .row{
+      max-width: 100%;
+    }
+
+    .our-team .picture::before {
+      height: 100%;
+    }
+
+    .our-team .social li a {
+      color: #450505fb;
+      background-color: #f7f5ec;
+    }
+
+    .our-team .social {
+      bottom: 0;
+    }
+
+    .our-team .picture img {
+      box-shadow: 0 0 0 14px #f7f5ec;
+      transform: scale(0.7);
+    }
+  }
   
