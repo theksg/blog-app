@@ -132,7 +132,7 @@ app.delete("/api/file-delete",async(req,res)=>{
 
 app.use(express.json())
 
-const url='mongodb://localhost:27017/blog'
+const url=process.env.MONGODB_URI || 'mongodb://localhost:27017/blog'
 
 mongoose.connect(url, {
     useNewUrlParser: true,
@@ -149,4 +149,8 @@ app.use("/api/categories",categoryRoute);
 
 app.listen(PORT,()=>{
     console.log(`server is running on PORT ${PORT}`)
+})
+
+app.get('/test', (req, res) => {
+  res.send('Hello World!')
 })
