@@ -73,7 +73,7 @@ const Topbar = () => {
                         }
                     </ul>
                 </div>
-                <div className="topRight">
+                <div className="topRight" onClick={change_css_cross_icon}>
 
                     {user&&(
                         <>
