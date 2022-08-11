@@ -1,3 +1,3 @@
 window.env = {
-  "BE_URL": "https://blog-app-backend-theksg.herokuapp.com/api"
+  "BE_URL": "http://localhost:50000/api"
 };

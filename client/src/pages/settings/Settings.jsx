@@ -31,28 +31,24 @@ export default function Settings() {
 
     const handleUpdate = async (event) =>{
         setPress(true);
-        const updatedUser=inputs
+        let updatedUser=inputs
         updatedUser.userId=user._id
-
+        let link=window.env.BE_URL +`/users/${user._id}`;
+        const data=new FormData();
         if(file){
-            const data=new FormData();
+            
             const filename=Date.now() + file.name;
             data.append("name",filename);
             data.append("file",file);
             data.append("height",130);
-            updatedUser.photo=filename;
-      
-            try{
-              const res=await axios.post(window.env.BE_URL +"/upload",data);
-              console.log(res);
-              updatedUser.profilePic=res.data.url;
-            }
-            catch(error){
-              console.log(error)
-            }
-          }
+            data.append("user",true);
+            data.append("updatedUser",JSON.stringify(updatedUser));
+
+            updatedUser = data;
+            link = window.env.BE_URL +"/upload";
+        }
         try{
-            const res=await axios.put(window.env.BE_URL +`/users/${user._id}`,updatedUser)
+            const res=await axios.post(link,data)
             dispatch({type:"LOGIN_SUCCESS",payload:res.data})
             window.location.replace("/");
         }

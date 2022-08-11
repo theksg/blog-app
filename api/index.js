@@ -7,6 +7,8 @@ app.use(cors())
 const dotenv = require("dotenv");
 dotenv.config();
 
+const axios = require('axios').default;
+
 app.use(express.json());
 
 const mongoose = require("mongoose");
@@ -18,7 +20,7 @@ const categoryRoute=require("./routes/categories");
 
 const multer=require("multer")
 const cloudinary = require("cloudinary").v2;
-const fs = require('fs-extra')
+const fs = require('fs-extra');
 
 // Creating uploads folder if not already present
 // In "uploads" folder we will temporarily upload
@@ -89,7 +91,15 @@ app.post("/api/upload", upload.single("file"),async (req, res) => {
     var result = await uploadToCloudinary(locaFilePath , height);
     console.log(result)
     if(result?.status==200){
-      res.status(200).json(result)
+      if(req.body.user){
+        const newReq=JSON.parse(req.body.updatedUser);
+        newReq.profilePic=result.url;
+        const result_update=await axios.put(`http://localhost:${process.env.PORT}/api/users/${newReq._id}`,newReq);
+        res.status(200).json(result_update.data);
+      }
+      else{
+        res.status(200).json(result)
+      }
     }
     else{
       res.status(500).json("File Not Uploaded")
