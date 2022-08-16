@@ -178,12 +178,10 @@ export default function CategoryBox(props) {
     getOptionLabel: (option) => option,
     value:props.categories,
     onChange: (e,v)=>{
-      console.log(v)
       props.setCategories(v)
     }
   });
   
-  console.log(props)
   return (
     <Root>
       <div {...getRootProps()}>
